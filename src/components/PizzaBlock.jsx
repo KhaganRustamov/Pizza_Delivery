@@ -5,18 +5,6 @@ function PizzaBlock({ imageUrl, title, types, sizes, price }) {
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
-  const changeCount = () => {
-    setCount(count + 1);
-  };
-
-  const onClickType = (index) => {
-    setActiveType(index);
-  };
-
-  const onClickSize = (index) => {
-    setActiveSize(index);
-  };
-
   const pizzaTypes = ["тонкое", "традиционное"];
 
   return (
@@ -27,9 +15,8 @@ function PizzaBlock({ imageUrl, title, types, sizes, price }) {
         <ul>
           {types.map((typeIndex) => (
             <li
-              onClick={() => {
-                onClickType(typeIndex);
-              }}
+              key={typeIndex}
+              onClick={() => setActiveType(typeIndex)}
               className={activeType === typeIndex ? "active" : null}
             >
               {pizzaTypes[typeIndex]}
@@ -39,9 +26,8 @@ function PizzaBlock({ imageUrl, title, types, sizes, price }) {
         <ul>
           {sizes.map((size, i) => (
             <li
-              onClick={() => {
-                onClickSize(i);
-              }}
+              key={i}
+              onClick={() => setActiveSize(i)}
               className={activeSize === i ? "active" : null}
             >
               {size} см.
@@ -52,7 +38,7 @@ function PizzaBlock({ imageUrl, title, types, sizes, price }) {
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">{price} ₽</div>
         <div
-          onClick={changeCount}
+          onClick={() => setCount(count + 1)}
           className="button button--outline button--add"
         >
           <svg

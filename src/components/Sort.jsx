@@ -1,4 +1,16 @@
+import { useState } from "react";
+
 function Sort() {
+  const [showList, setShowList] = useState(false);
+  const [activeSort, setActiveSort] = useState(0);
+
+  const sortList = ["популярности", "цене", "алфавиту"];
+
+  const onSelectList = (i) => {
+    setActiveSort(i);
+    setShowList(false);
+  };
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -15,15 +27,25 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setShowList(!showList)}>
+          {sortList[activeSort]}
+        </span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {showList && (
+        <div className="sort__popup">
+          <ul>
+            {sortList.map((sort, i) => (
+              <li
+                key={i}
+                onClick={() => onSelectList(i)}
+                className={activeSort === i ? "active" : null}
+              >
+                {sort}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
