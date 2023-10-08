@@ -24,7 +24,7 @@ function Categories() {
             onClick={() => {
               onClickCategory(i);
             }}
-            className={activeIndex === i ? "active" : ""}
+            className={activeIndex === i ? "active" : null}
           >
             {item}
           </li>
