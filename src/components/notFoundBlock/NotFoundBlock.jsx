@@ -1,10 +1,14 @@
+import styles from "./notFoundBlock.module.scss";
+
 function NotFoundBlock() {
   return (
-    <>
-      <div>
-        <h1>По вашему запросу ничего не найдено</h1>
-      </div>
-    </>
+    <div className={styles.root}>
+      <h1>
+        <span>😕</span>
+        <br />
+        По вашему запросу ничего не найдено
+      </h1>
+    </div>
   );
 }
 
