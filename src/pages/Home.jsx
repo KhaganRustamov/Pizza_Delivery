@@ -17,9 +17,9 @@ function Home() {
         setIsLoading(false);
       });
   }, []);
-  
+
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -30,7 +30,7 @@ function Home() {
           ? [...new Array(8)].map((_, i) => <Skeleton key={i} />)
           : items.map((item) => <PizzaBlock {...item} key={item.id} />)}
       </div>
-    </>
+    </div>
   );
 }
 
