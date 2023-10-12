@@ -1,9 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+
+import { changeSort } from "../../redux/slices/filterSlice";
 
 import "./sort.scss";
 
-function Sort({ value, onClickSort }) {
+function Sort() {
   const [showList, setShowList] = useState(false);
+  const sort = useSelector((state) => state.filter.sort);
+  const dispatch = useDispatch();
 
   const sortList = [
     { name: "популярности", sortProperty: "-rating" },
@@ -13,7 +18,7 @@ function Sort({ value, onClickSort }) {
   ];
 
   const onSelectList = (item) => {
-    onClickSort(item);
+    dispatch(changeSort(item));
     setShowList(false);
   };
 
@@ -33,7 +38,7 @@ function Sort({ value, onClickSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setShowList(!showList)}>{value.name}</span>
+        <span onClick={() => setShowList(!showList)}>{sort.name}</span>
       </div>
       {showList && (
         <div className="sort__popup">
@@ -43,7 +48,7 @@ function Sort({ value, onClickSort }) {
                 key={i}
                 onClick={() => onSelectList(item)}
                 className={
-                  value.sortProperty === item.sortProperty ? "active" : null
+                  sort.sortProperty === item.sortProperty ? "active" : null
                 }
               >
                 {item.name}
