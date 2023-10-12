@@ -1,7 +1,10 @@
 @import "./variables";
-@import "./libs/normalize";
-
-@import "./components/all";
+@import "./normalize";
+@import "./button";
+@import "../components/categories/categories.scss";
+@import "../components/header/header.scss";
+@import "../components/pizzaBlock/pizza-block.scss";
+@import "../components/sort/sort.scss";
 
 // body {
 //   background-color: $background;

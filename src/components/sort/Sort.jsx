@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import "./sort.scss";
+
 function Sort({ value, onClickSort }) {
   const [showList, setShowList] = useState(false);
 

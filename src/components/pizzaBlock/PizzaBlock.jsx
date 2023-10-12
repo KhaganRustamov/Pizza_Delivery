@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import "./pizza-block.scss";
+
 function PizzaBlock({ imageUrl, title, types, sizes, price }) {
   const [count, setCount] = useState(0);
   const [activeType, setActiveType] = useState(0);

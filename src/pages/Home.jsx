@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import Categories from "../components/Categories";
-import Sort from "../components/Sort";
+import Categories from "../components/categories/Categories";
+import Sort from "../components/sort/Sort";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Skeleton from "../components/pizzaBlock/Skeleton";
 

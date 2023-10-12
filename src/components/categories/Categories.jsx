@@ -1,3 +1,5 @@
+import "./categories.scss";
+
 function Categories({ value, onClickCategory }) {
   const categories = [
     "Все",
