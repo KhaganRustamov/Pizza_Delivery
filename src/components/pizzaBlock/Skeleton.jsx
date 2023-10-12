@@ -4,7 +4,7 @@ const Skeleton = () => (
   <ContentLoader
     className="pizza-block"
     speed={2}
-    width={280}
+    width={800}
     height={500}
     viewBox="0 0 280 500"
     backgroundColor="#f3f3f3"
