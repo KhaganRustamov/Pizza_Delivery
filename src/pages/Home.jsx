@@ -18,6 +18,7 @@ function Home() {
   }));
 
   const { searchValue } = useContext(searchContext);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
