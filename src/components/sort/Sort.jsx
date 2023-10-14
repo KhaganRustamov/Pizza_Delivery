@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { changeSort } from "../../redux/slices/filterSlice";
 
@@ -8,6 +8,7 @@ import "./sort.scss";
 function Sort() {
   const [showList, setShowList] = useState(false);
   const sort = useSelector((state) => state.filter.sort);
+  const sortRef = useRef();
   const dispatch = useDispatch();
 
   const sortList = [
@@ -22,8 +23,20 @@ function Sort() {
     setShowList(false);
   };
 
+  useEffect(() => {
+    const handleBodyClick = (e) => {
+      if (sortRef.current.contains(e.target)) {
+        console.log("ok");
+      }
+    };
+
+    document.body.addEventListener("click", handleBodyClick);
+
+    return () => document.body.removeEventListener("click", handleBodyClick);
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
