@@ -5,17 +5,17 @@ import { changeSort } from "../../redux/slices/filterSlice";
 
 import "./sort.scss";
 
-const sortList = [
-  { name: "популярности", sortProperty: "-rating" },
-  { name: "возрастающей цене", sortProperty: "price" },
-  { name: "убывающей цене", sortProperty: "-price" },
-  { name: "алфавиту", sortProperty: "title" },
-];
-
 function Sort() {
   const [showList, setShowList] = useState(false);
   const sort = useSelector((state) => state.filter.sort);
   const dispatch = useDispatch();
+
+  const sortList = [
+    { name: "популярности", sortProperty: "-rating" },
+    { name: "возрастающей цене", sortProperty: "price" },
+    { name: "убывающей цене", sortProperty: "-price" },
+    { name: "алфавиту", sortProperty: "title" },
+  ];
 
   const onSelectList = (item) => {
     dispatch(changeSort(item));
