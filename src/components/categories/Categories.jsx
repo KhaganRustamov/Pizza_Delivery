@@ -4,7 +4,7 @@ import { changeCategory } from "../../redux/slices/filterSlice";
 
 import "./categories.scss";
 
-function Categories() {
+const Categories = () => {
   const category = useSelector((state) => state.filter.categoryId);
   const dispatch = useDispatch();
 
@@ -32,6 +32,6 @@ function Categories() {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

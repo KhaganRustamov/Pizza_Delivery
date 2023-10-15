@@ -62,24 +62,12 @@
       color: $orange;
     }
 
-    svg {
-      path {
-        fill: $orange;
-      }
-    }
-
     &:hover {
       background-color: $orange;
 
       &,
       span {
         color: #fff;
-      }
-
-      svg {
-        path {
-          fill: #fff;
-        }
       }
     }
 

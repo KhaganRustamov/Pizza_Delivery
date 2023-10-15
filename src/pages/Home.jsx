@@ -10,7 +10,7 @@ import Pagination from "../components/pagination/Pagination";
 
 import { searchContext } from "../App";
 
-function Home() {
+const Home = () => {
   const { categoryId, sortType, currentPage } = useSelector((state) => ({
     categoryId: state.filter.categoryId,
     sortType: state.filter.sort.sortProperty,
@@ -57,6 +57,6 @@ function Home() {
       <Pagination />
     </div>
   );
-}
+};
 
 export default Home;

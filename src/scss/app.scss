@@ -109,11 +109,11 @@
     align-items: center;
     font-size: 32px;
 
-    svg {
+    img {
       position: relative;
       top: -2px;
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       margin-right: 10px;
       path {
         stroke: $black;
@@ -126,7 +126,6 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    @include noselect();
 
     span {
       display: inline-block;
@@ -135,18 +134,7 @@
       font-size: 18px;
     }
 
-    span,
-    svg,
-    path {
-      transition: all $duration ease-in-out;
-    }
-
     &:hover {
-      svg {
-        path {
-          stroke: darken($color: #b6b6b6, $amount: 50);
-        }
-      }
       span {
         color: darken($color: #b6b6b6, $amount: 50);
       }
@@ -201,14 +189,6 @@
       justify-content: space-between;
       width: 13%;
 
-      &-minus {
-        svg {
-          path:first-of-type {
-            display: none;
-          }
-        }
-      }
-
       b {
         font-size: 22px;
       }
@@ -235,21 +215,16 @@
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
-      }
-
-      svg {
-        transform: rotate(45deg);
-
-        path {
-          fill: darken($color: $gray-line, $amount: 15);
+        &:hover {
+          span {
+            color: #fff;
+          }
         }
-      }
 
-      .button {
-        svg {
+        span {
           width: 11.5px;
-          height: 11.5px;
           position: relative;
+          color: gray;
         }
         &:hover,
         &:active {

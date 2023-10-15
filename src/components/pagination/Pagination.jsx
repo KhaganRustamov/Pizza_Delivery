@@ -5,7 +5,7 @@ import { changePage } from "../../redux/slices/filterSlice";
 
 import styles from "./pagination.module.scss";
 
-function Pagination() {
+const Pagination = () => {
   const page = useSelector((state) => state.filter.currentPage);
   const dispatch = useDispatch();
 
@@ -22,6 +22,6 @@ function Pagination() {
       renderOnZeroPageCount={null}
     />
   );
-}
+};
 
 export default Pagination;
