@@ -12,24 +12,34 @@ const PizzaBlock = ({ imageUrl, title, types, sizes, price, id }) => {
   const dispatch = useDispatch();
 
   const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id === id)
+    state.cart.items.find(
+      (obj) =>
+        obj.id === id &&
+        obj.type === types[activeType] &&
+        obj.size === sizes[activeSize]
+    )
   );
 
   const addCount = cartItem ? cartItem.count : 0;
+
+  const coefficients = [
+    [1.0, 1.2, 1.5],
+    [1.3, 1.6, 1.8],
+  ];
+
+  const calculatedPrice = price * coefficients[activeType][activeSize];
 
   const onClickAdd = () => {
     const item = {
       id,
       title,
       imageUrl,
-      price,
-      type: pizzaTypes[activeType],
+      price: calculatedPrice,
+      type: types[activeType],
       size: sizes[activeSize],
     };
     dispatch(addItem(item));
   };
-
-  const pizzaTypes = ["тонкое", "традиционное"];
 
   return (
     <div className="pizza-block-wrapper">
@@ -38,13 +48,13 @@ const PizzaBlock = ({ imageUrl, title, types, sizes, price, id }) => {
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
-            {types.map((typeIndex) => (
+            {types.map((type, i) => (
               <li
-                key={typeIndex}
-                onClick={() => setActiveType(typeIndex)}
-                className={activeType === typeIndex ? "active" : null}
+                key={i}
+                onClick={() => setActiveType(i)}
+                className={activeType === i ? "active" : null}
               >
-                {pizzaTypes[typeIndex]}
+                {type}
               </li>
             ))}
           </ul>
@@ -61,7 +71,7 @@ const PizzaBlock = ({ imageUrl, title, types, sizes, price, id }) => {
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">{price} ₽</div>
+          <div className="pizza-block__price">{calculatedPrice} ₽</div>
           <button
             onClick={onClickAdd}
             className="button button--outline button--add"

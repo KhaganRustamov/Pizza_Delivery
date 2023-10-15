@@ -27,8 +27,8 @@ const Sort = () => {
 
   useEffect(() => {
     const handleBodyClick = (e) => {
-      if (sortRef.current.contains(e.target)) {
-        console.log("ok");
+      if (!sortRef.current.contains(e.target)) {
+        setShowList(false);
       }
     };
 
