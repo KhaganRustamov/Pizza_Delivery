@@ -38,7 +38,10 @@ const Cart = () => {
         </div>
         <div className="content__items">
           {items.map(
-            (item) => item.count > 0 && <CartItem key={item.id} {...item} />
+            (item) =>
+              item.count > 0 && (
+                <CartItem key={item.id + item.size + item.type} {...item} />
+              )
           )}
         </div>
         <div className="cart__bottom">

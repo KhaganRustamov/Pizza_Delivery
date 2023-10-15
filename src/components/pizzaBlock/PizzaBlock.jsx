@@ -12,7 +12,7 @@ const PizzaBlock = ({ imageUrl, title, types, sizes, price, id }) => {
   const dispatch = useDispatch();
 
   const cartItem = useSelector((state) =>
-    state.cart.items.find((item) => item.id === id)
+    state.cart.items.find((obj) => obj.id === id)
   );
 
   const addCount = cartItem ? cartItem.count : 0;
