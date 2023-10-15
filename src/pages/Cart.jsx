@@ -1,15 +1,27 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { clearItems } from "../redux/slices/cartSlice";
+
 import CartItem from "../components/cartItem/CartItem";
+import CartEmpty from "../components/cartEmpty/CartEmpty";
 
 import cart from "../assets/img/cart.png";
 import trash from "../assets/img/trash.png";
 
 const Cart = () => {
+  const { items, totalPrice } = useSelector((state) => state.cart);
+  const count = items.reduce((acc, item) => acc + item.count, 0);
+
   const dispatch = useDispatch();
 
-  const items = useSelector((state) => state.cart.items);
+  const deleteItems = () => {
+    dispatch(clearItems());
+  };
+
+  if (!count) {
+    return <CartEmpty />;
+  }
 
   return (
     <div className="container container--cart">
@@ -19,25 +31,25 @@ const Cart = () => {
             <img src={cart}></img>
             Корзина
           </h2>
-          <div className="cart__clear">
+          <div onClick={deleteItems} className="cart__clear">
             <img src={trash} width="20" height="20"></img>
             <span>Очистить корзину</span>
           </div>
         </div>
         <div className="content__items">
-          {items.map((item) => (
-            <CartItem key={item} {...item} />
-          ))}
+          {items.map(
+            (item) => item.count > 0 && <CartItem key={item.id} {...item} />
+          )}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
               {" "}
-              Всего пицц: <b>3 шт.</b>{" "}
+              Всего пицц: <b>{count} шт.</b>{" "}
             </span>
             <span>
               {" "}
-              Сумма заказа: <b>900 ₽</b>{" "}
+              Сумма заказа: <b>{totalPrice} ₽</b>{" "}
             </span>
           </div>
           <div className="cart__bottom-buttons">

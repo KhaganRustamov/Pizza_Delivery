@@ -10,7 +10,7 @@ import cart from "../../assets/img/cart.svg";
 
 const Header = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
-  const totalCount = items.reduce((acc, item) => acc + item.count, 0);
+  const count = items.reduce((acc, item) => acc + item.count, 0);
 
   return (
     <div className="header">
@@ -29,7 +29,7 @@ const Header = () => {
             <span>{totalPrice} ₽</span>
             <div className="button__delimiter"></div>
             <img className="cart" src={cart} alt="Cart" />
-            <span>{totalCount}</span>
+            <span>{count}</span>
           </Link>
         </div>
       </div>
