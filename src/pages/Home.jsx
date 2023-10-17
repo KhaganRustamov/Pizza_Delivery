@@ -12,6 +12,7 @@ import Pagination from "../components/pagination/Pagination";
 import { searchContext } from "../App";
 
 import { changeFilters } from "../redux/slices/filterSlice";
+import { setItems } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,6 +20,7 @@ const Home = () => {
   const isSearch = useRef(false);
   const dispatch = useDispatch();
 
+  const items = useSelector((state) => state.pizza.items);
   const { categoryId, sortType, currentPage } = useSelector((state) => ({
     categoryId: state.filter.categoryId,
     sortType: state.filter.sort.sortProperty,
@@ -26,8 +28,6 @@ const Home = () => {
   }));
 
   const { searchValue } = useContext(searchContext);
-
-  const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchPizzas = async () => {
@@ -41,7 +41,7 @@ const Home = () => {
       const res = await axios.get(
         `https://65264185917d673fd76be60b.mockapi.io/items?category=${category}&page=${currentPage}&limit=8&sortBy=${sortBy}&order=${order}`
       );
-      setItems(res.data);
+      dispatch(setItems(res.data));
     } catch (error) {
       console.log(error);
     } finally {
