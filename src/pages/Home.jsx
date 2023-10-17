@@ -1,16 +1,24 @@
-import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useContext, useEffect, useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 import Categories from "../components/categories/Categories";
-import Sort from "../components/sort/Sort";
+import Sort, { sortList } from "../components/sort/Sort";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Skeleton from "../components/pizzaBlock/Skeleton";
 import Pagination from "../components/pagination/Pagination";
 
 import { searchContext } from "../App";
 
+import { changeFilters } from "../redux/slices/filterSlice";
+
 const Home = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const isMounted = useRef(false);
+  const isSearch = useRef(false);
+  const dispatch = useDispatch();
+
   const { categoryId, sortType, currentPage } = useSelector((state) => ({
     categoryId: state.filter.categoryId,
     sortType: state.filter.sort.sortProperty,
@@ -22,7 +30,7 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchPizzas = () => {
     setIsLoading(true);
 
     const category = categoryId > 0 ? categoryId : "";
@@ -37,7 +45,50 @@ const Home = () => {
         setItems(res.data);
         setIsLoading(false);
       });
-  }, [categoryId, sortType, searchValue, currentPage]);
+  };
+
+  useEffect(() => {
+    if (isMounted.current) {
+      setSearchParams({
+        sortProperty: sortType,
+        categoryId,
+        currentPage,
+      });
+    }
+    isMounted.current = true;
+  }, [categoryId, sortType, currentPage, setSearchParams]);
+
+  useEffect(() => {
+    if (!isSearch.current && !searchParams.toString()) {
+      const params = Object.fromEntries(searchParams.entries());
+      const sort = sortList.find(
+        (obj) => obj.sortProperty === params.sortProperty
+      );
+      if (sort) {
+        dispatch(
+          changeFilters({
+            ...params,
+            sort,
+          })
+        );
+      }
+      isSearch.current = true;
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+
+    isSearch.current = false;
+  }, [categoryId, sortType, currentPage]);
+
+  useEffect(() => {
+    fetchPizzas();
+  }, []);
 
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
   const pizzas = items
