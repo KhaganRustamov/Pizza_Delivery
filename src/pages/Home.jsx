@@ -19,7 +19,7 @@ const Home = () => {
   const isSearch = useRef(false);
   const dispatch = useDispatch();
 
-  const { items } = useSelector((state) => state.pizza.items);
+  const items = useSelector((state) => state.pizza.items);
   const { categoryId, sortType, currentPage } = useSelector((state) => ({
     categoryId: state.filter.categoryId,
     sortType: state.filter.sort.sortProperty,
@@ -37,11 +37,20 @@ const Home = () => {
     const order = sortType.includes("-") ? "desc" : "asc";
 
     try {
-      dispatch(fetchPizzas({ category, sortBy, order, currentPage }));
+      dispatch(fetchPizzas({ category, sortBy, order, currentPage }))
+        .then((action) => {
+          if (fetchPizzas.fulfilled.match(action)) {
+            dispatch(setItems(action.payload));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
