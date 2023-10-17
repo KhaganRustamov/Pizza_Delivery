@@ -37,20 +37,15 @@ const Home = () => {
     const order = sortType.includes("-") ? "desc" : "asc";
 
     try {
-      dispatch(fetchPizzas({ category, sortBy, order, currentPage }))
-        .then((action) => {
-          if (fetchPizzas.fulfilled.match(action)) {
-            dispatch(setItems(action.payload));
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      dispatch(fetchPizzas({ category, sortBy, order, currentPage })).then(
+        (action) => {
+          dispatch(setItems(action.payload));
+        }
+      );
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

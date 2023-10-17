@@ -27,16 +27,14 @@ const pizzaSlice = createSlice({
     builder
       .addCase(fetchPizzas.pending, (state) => {
         state.status = "loading";
-        state.items = [];
       })
-      .addCase(fetchPizzas.fulfilled, (state, action) => {
+      .addCase(fetchPizzas.fulfilled, (state) => {
         state.status = "success";
-        state.items = action.payload;
       })
       .addCase(fetchPizzas.rejected, (state) => {
         state.status = "error";
-        state.items = [];
-      });
+      })
+      .addDefaultCase(() => {});
   },
 });
 
