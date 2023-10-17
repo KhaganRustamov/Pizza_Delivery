@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
 import Categories from "../components/categories/Categories";
@@ -12,7 +11,7 @@ import Pagination from "../components/pagination/Pagination";
 import { searchContext } from "../App";
 
 import { changeFilters } from "../redux/slices/filterSlice";
-import { setItems } from "../redux/slices/pizzaSlice";
+import { fetchPizzas, setItems } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,7 +19,7 @@ const Home = () => {
   const isSearch = useRef(false);
   const dispatch = useDispatch();
 
-  const items = useSelector((state) => state.pizza.items);
+  const { items } = useSelector((state) => state.pizza.items);
   const { categoryId, sortType, currentPage } = useSelector((state) => ({
     categoryId: state.filter.categoryId,
     sortType: state.filter.sort.sortProperty,
@@ -30,7 +29,7 @@ const Home = () => {
   const { searchValue } = useContext(searchContext);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchPizzas = async () => {
+  const getPizzas = () => {
     setIsLoading(true);
 
     const category = categoryId > 0 ? categoryId : "";
@@ -38,10 +37,7 @@ const Home = () => {
     const order = sortType.includes("-") ? "desc" : "asc";
 
     try {
-      const res = await axios.get(
-        `https://65264185917d673fd76be60b.mockapi.io/items?category=${category}&page=${currentPage}&limit=8&sortBy=${sortBy}&order=${order}`
-      );
-      dispatch(setItems(res.data));
+      dispatch(fetchPizzas({ category, sortBy, order, currentPage }));
     } catch (error) {
       console.log(error);
     } finally {
@@ -80,13 +76,13 @@ const Home = () => {
 
   useEffect(() => {
     if (!isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
     isSearch.current = false;
   }, [categoryId, sortType, currentPage]);
 
   useEffect(() => {
-    fetchPizzas();
+    getPizzas();
   }, []);
 
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
