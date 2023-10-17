@@ -30,21 +30,23 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
 
     const category = categoryId > 0 ? categoryId : "";
     const sortBy = sortType.replace("-", "");
     const order = sortType.includes("-") ? "desc" : "asc";
 
-    axios
-      .get(
+    try {
+      const res = await axios.get(
         `https://65264185917d673fd76be60b.mockapi.io/items?category=${category}&page=${currentPage}&limit=8&sortBy=${sortBy}&order=${order}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+      );
+      setItems(res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -77,12 +79,9 @@ const Home = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     if (!isSearch.current) {
       fetchPizzas();
     }
-
     isSearch.current = false;
   }, [categoryId, sortType, currentPage]);
 
