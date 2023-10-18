@@ -1,25 +1,26 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+// import { useSearchParams } from "react-router-dom";
 
 import Categories from "../components/categories/Categories";
-import Sort, { sortList } from "../components/sort/Sort";
+import Sort from "../components/sort/Sort";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Skeleton from "../components/pizzaBlock/Skeleton";
 import Pagination from "../components/pagination/Pagination";
 
 import { searchContext } from "../App";
 
-import { changeFilters } from "../redux/slices/filterSlice";
-import { fetchPizzas, setItems } from "../redux/slices/pizzaSlice";
+// import { changeFilters } from "../redux/slices/filterSlice";
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const isMounted = useRef(false);
-  const isSearch = useRef(false);
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const isMounted = useRef(false);
+  // const isSearch = useRef(false);
   const dispatch = useDispatch();
 
-  const items = useSelector((state) => state.pizza.items);
+  const { items, status } = useSelector((state) => state.pizza);
+
   const { categoryId, sortType, currentPage } = useSelector((state) => ({
     categoryId: state.filter.categoryId,
     sortType: state.filter.sort.sortProperty,
@@ -27,67 +28,54 @@ const Home = () => {
   }));
 
   const { searchValue } = useContext(searchContext);
-  const [isLoading, setIsLoading] = useState(true);
 
-  const getPizzas = () => {
-    setIsLoading(true);
-
-    const category = categoryId > 0 ? categoryId : "";
-    const sortBy = sortType.replace("-", "");
-    const order = sortType.includes("-") ? "desc" : "asc";
-
-    try {
-      dispatch(fetchPizzas({ category, sortBy, order, currentPage })).then(
-        (action) => {
-          dispatch(setItems(action.payload));
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const category = categoryId > 0 ? categoryId : "";
+  const sortBy = sortType.replace("-", "");
+  const order = sortType.includes("-") ? "desc" : "asc";
 
   useEffect(() => {
-    if (isMounted.current) {
-      setSearchParams({
-        sortProperty: sortType,
-        categoryId,
-        currentPage,
-      });
-    }
-    isMounted.current = true;
-  }, [categoryId, sortType, currentPage, setSearchParams]);
+    dispatch(fetchPizzas({ category, sortBy, order, currentPage }));
+  }, [category, sortBy, order, currentPage]);
 
-  useEffect(() => {
-    if (!isSearch.current && !searchParams.toString()) {
-      const params = Object.fromEntries(searchParams.entries());
-      const sort = sortList.find(
-        (obj) => obj.sortProperty === params.sortProperty
-      );
-      if (sort) {
-        dispatch(
-          changeFilters({
-            ...params,
-            sort,
-          })
-        );
-      }
-      isSearch.current = true;
-    }
-  }, [searchParams]);
+  // useEffect(() => {
+  //   if (isMounted.current) {
+  //     setSearchParams({
+  //       sortProperty: sortType,
+  //       categoryId,
+  //       currentPage,
+  //     });
+  //   }
+  //   isMounted.current = true;
+  // }, [categoryId, sortType, currentPage, setSearchParams]);
 
-  useEffect(() => {
-    if (!isSearch.current) {
-      getPizzas();
-    }
-    isSearch.current = false;
-  }, [categoryId, sortType, currentPage]);
+  // useEffect(() => {
+  //   if (!isSearch.current && !searchParams.toString()) {
+  //     const params = Object.fromEntries(searchParams.entries());
+  //     const sort = sortList.find(
+  //       (obj) => obj.sortProperty === params.sortProperty
+  //     );
+  //     if (sort) {
+  //       dispatch(
+  //         changeFilters({
+  //           ...params,
+  //           sort,
+  //         })
+  //       );
+  //     }
+  //     isSearch.current = true;
+  //   }
+  // }, [searchParams]);
 
-  useEffect(() => {
-    getPizzas();
-  }, []);
+  // useEffect(() => {
+  //   if (!isSearch.current) {
+  //     getPizzas();
+  //   }
+  //   isSearch.current = false;
+  // }, [categoryId, sortType, currentPage]);
+
+  // useEffect(() => {
+  //   getPizzas();
+  // }, []);
 
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
   const pizzas = items
@@ -103,7 +91,17 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+      {status === "error" ? (
+        <div className="content__error-info">
+          <h2>Произошла ошибка 😕</h2>
+          <p>Не удалось получить список пицц</p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading" ? skeletons : pizzas}
+        </div>
+      )}
+
       <Pagination />
     </div>
   );

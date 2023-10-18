@@ -22,15 +22,14 @@ const filterSlice = createSlice({
     changePage(state, action) {
       state.currentPage = action.payload;
     },
-    changeFilters(state, action) {
-      state.categoryId = Number(action.payload.categoryId);
-      state.sort = action.payload.sort;
-      state.currentPage = Number(action.payload.currentPage);
-    },
+    // changeFilters(state, action) {
+    //   state.categoryId = Number(action.payload.categoryId);
+    //   state.sort = action.payload.sort;
+    //   state.currentPage = Number(action.payload.currentPage);
+    // },
   },
 });
 
-export const { changeCategory, changeSort, changePage, changeFilters } =
-  filterSlice.actions;
+export const { changeCategory, changeSort, changePage } = filterSlice.actions;
 
 export default filterSlice.reducer;
