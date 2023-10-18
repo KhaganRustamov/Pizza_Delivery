@@ -6,22 +6,27 @@ const initialState = {
   totalCount: 0,
 };
 
+const findCartItem = (items, payload) => {
+  return items.find(
+    (item) =>
+      item.id === payload.id &&
+      item.size === payload.size &&
+      item.type === payload.type
+  );
+};
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     addItem(state, action) {
-      const findItem = state.items.find((obj) => {
-        return (
-          obj.id === action.payload.id &&
-          obj.size === action.payload.size &&
-          obj.type === action.payload.type
-        );
-      });
+      const foundItem = findCartItem(state.items, action.payload);
 
-      findItem
-        ? findItem.count++
-        : state.items.push({ ...action.payload, count: 1 });
+      if (foundItem) {
+        foundItem.count++;
+      } else {
+        state.items.push({ ...action.payload, count: 1 });
+      }
 
       state.totalPrice = state.items.reduce(
         (acc, item) => acc + item.price * item.count,
@@ -30,34 +35,26 @@ const cartSlice = createSlice({
     },
 
     minusItem(state, action) {
-      const findItem = state.items.find((obj) => {
-        return (
-          obj.id === action.payload.id &&
-          obj.size === action.payload.size &&
-          obj.type === action.payload.type
-        );
-      });
+      const foundItem = findCartItem(state.items, action.payload);
 
-      findItem && findItem.count--;
-      state.totalPrice -= findItem.price;
+      if (foundItem && foundItem.count > 0) {
+        foundItem.count--;
+        state.totalPrice -= foundItem.price;
+      }
     },
 
     removeItem(state, action) {
-      const findItem = state.items.find((obj) => {
-        return (
-          obj.id === action.payload.id &&
-          obj.size === action.payload.size &&
-          obj.type === action.payload.type
+      const foundItem = findCartItem(state.items, action.payload);
+
+      if (foundItem) {
+        state.totalPrice -= foundItem.price * foundItem.count;
+        state.items = state.items.filter(
+          (item) =>
+            item.id !== action.payload.id ||
+            item.size !== action.payload.size ||
+            item.type !== action.payload.type
         );
-      });
-      state.totalPrice -= findItem.price * findItem.count;
-      state.items = state.items.filter((obj) => {
-        return (
-          obj.id !== action.payload.id ||
-          obj.size !== action.payload.size ||
-          obj.type !== action.payload.type
-        );
-      });
+      }
     },
 
     clearItems(state) {

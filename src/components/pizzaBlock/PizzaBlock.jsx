@@ -27,7 +27,9 @@ const PizzaBlock = ({ imageUrl, title, types, sizes, price, id }) => {
     [1.3, 1.6, 1.8],
   ];
 
-  const calculatedPrice = price * coefficients[activeType][activeSize];
+  const calculatedPrice = Math.round(
+    price * coefficients[activeType][activeSize]
+  );
 
   const onClickAdd = () => {
     const item = {
