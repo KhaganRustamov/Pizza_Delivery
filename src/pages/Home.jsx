@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useSearchParams } from "react-router-dom";
 
@@ -7,8 +7,6 @@ import Sort from "../components/sort/Sort";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Skeleton from "../components/pizzaBlock/Skeleton";
 import Pagination from "../components/pagination/Pagination";
-
-import { searchContext } from "../App";
 
 // import { changeFilters } from "../redux/slices/filterSlice";
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
@@ -21,13 +19,14 @@ const Home = () => {
 
   const { items, status } = useSelector((state) => state.pizza);
 
-  const { categoryId, sortType, currentPage } = useSelector((state) => ({
-    categoryId: state.filter.categoryId,
-    sortType: state.filter.sort.sortProperty,
-    currentPage: state.filter.currentPage,
-  }));
-
-  const { searchValue } = useContext(searchContext);
+  const { categoryId, sortType, currentPage, searchValue } = useSelector(
+    (state) => ({
+      categoryId: state.filter.categoryId,
+      sortType: state.filter.sort.sortProperty,
+      currentPage: state.filter.currentPage,
+      searchValue: state.filter.searchValue,
+    })
+  );
 
   const category = categoryId > 0 ? categoryId : "";
   const sortBy = sortType.replace("-", "");
