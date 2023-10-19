@@ -10,7 +10,6 @@ import Pagination from "../components/pagination/Pagination";
 
 // import { changeFilters } from "../redux/slices/filterSlice";
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
-import ts from "typescript";
 
 const Home: React.FC = () => {
   // const [searchParams, setSearchParams] = useSearchParams();
