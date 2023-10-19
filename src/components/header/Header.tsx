@@ -8,9 +8,9 @@ import "./header.scss";
 import logo from "../../assets/img/pizza-logo.svg";
 import cart from "../../assets/img/cart.svg";
 
-const Header = () => {
-  const { items, totalPrice } = useSelector((state) => state.cart);
-  const count = items.reduce((acc, item) => acc + item.count, 0);
+const Header: React.FC = () => {
+  const { items, totalPrice } = useSelector((state:any) => state.cart);
+  const count = items.reduce((acc:number, item:any) => acc + item.count, 0);
 
   const location = useLocation();
 
