@@ -5,15 +5,31 @@ import { addItem } from "../../redux/slices/cartSlice";
 
 import "./pizza-block.scss";
 
-const PizzaBlock = ({ imageUrl, title, types, sizes, price, id }) => {
+interface PizzaBLockProps {
+  imageUrl: string;
+  title: string;
+  types: string[];
+  sizes: number[];
+  price: number;
+  id: number;
+}
+
+const PizzaBlock: React.FC<PizzaBLockProps> = ({
+  imageUrl,
+  title,
+  types,
+  sizes,
+  price,
+  id,
+}) => {
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
   const dispatch = useDispatch();
 
-  const cartItem = useSelector((state) =>
+  const cartItem = useSelector((state: any) =>
     state.cart.items.find(
-      (obj) =>
+      (obj: any) =>
         obj.id === id &&
         obj.type === types[activeType] &&
         obj.size === sizes[activeSize]
@@ -54,7 +70,7 @@ const PizzaBlock = ({ imageUrl, title, types, sizes, price, id }) => {
               <li
                 key={i}
                 onClick={() => setActiveType(i)}
-                className={activeType === i ? "active" : null}
+                className={activeType === i ? "active" : ""}
               >
                 {type}
               </li>
@@ -65,7 +81,7 @@ const PizzaBlock = ({ imageUrl, title, types, sizes, price, id }) => {
               <li
                 key={i}
                 onClick={() => setActiveSize(i)}
-                className={activeSize === i ? "active" : null}
+                className={activeSize === i ? "active" : ""}
               >
                 {size} см.
               </li>

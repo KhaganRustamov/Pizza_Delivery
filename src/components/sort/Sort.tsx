@@ -30,17 +30,17 @@ const Sort: React.FC = () => {
     setShowList(false);
   };
 
-  // useEffect(() => {
-  //   const handleBodyClick = (e: any) => {
-  //     if (!sortRef.current.contains(e.target)) {
-  //       setShowList(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const handleBodyClick = (e: any) => {
+      if (!sortRef.current?.contains(e.target)) {
+        setShowList(false);
+      }
+    };
 
-  //   document.body.addEventListener("click", handleBodyClick);
+    document.body.addEventListener("click", handleBodyClick);
 
-  //   return () => document.body.removeEventListener("click", handleBodyClick);
-  // }, []);
+    return () => document.body.removeEventListener("click", handleBodyClick);
+  }, []);
 
   return (
     <div ref={sortRef} className="sort">

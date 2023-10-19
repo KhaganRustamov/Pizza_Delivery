@@ -9,9 +9,9 @@ import CartEmpty from "../components/cartEmpty/CartEmpty";
 import cart from "../assets/img/cart.png";
 import trash from "../assets/img/trash.png";
 
-const Cart = () => {
-  const { items, totalPrice } = useSelector((state) => state.cart);
-  const count = items.reduce((acc, item) => acc + item.count, 0);
+const Cart: React.FC = () => {
+  const { items, totalPrice } = useSelector((state: any) => state.cart);
+  const count = items.reduce((acc: number, item: any) => acc + item.count, 0);
 
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ const Cart = () => {
         </div>
         <div className="content__items">
           {items.map(
-            (item) =>
+            (item: any) =>
               item.count > 0 && (
                 <CartItem key={item.id + item.size + item.type} {...item} />
               )

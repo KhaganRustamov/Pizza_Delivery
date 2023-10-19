@@ -10,17 +10,18 @@ import Pagination from "../components/pagination/Pagination";
 
 // import { changeFilters } from "../redux/slices/filterSlice";
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import ts from "typescript";
 
-const Home = () => {
+const Home: React.FC = () => {
   // const [searchParams, setSearchParams] = useSearchParams();
   // const isMounted = useRef(false);
   // const isSearch = useRef(false);
   const dispatch = useDispatch();
 
-  const { items, status } = useSelector((state) => state.pizza);
+  const { items, status } = useSelector((state:any) => state.pizza);
 
   const { categoryId, sortType, currentPage, searchValue } = useSelector(
-    (state) => ({
+    (state:any) => ({
       categoryId: state.filter.categoryId,
       sortType: state.filter.sort.sortProperty,
       currentPage: state.filter.currentPage,
@@ -33,7 +34,9 @@ const Home = () => {
   const order = sortType.includes("-") ? "desc" : "asc";
 
   useEffect(() => {
-    dispatch(fetchPizzas({ category, sortBy, order, currentPage }));
+    dispatch
+    //@ts-ignore
+    (fetchPizzas({ category, sortBy, order, currentPage }));
   }, [category, sortBy, order, currentPage]);
 
   // useEffect(() => {
@@ -78,10 +81,10 @@ const Home = () => {
 
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
   const pizzas = items
-    .filter((item) =>
+    .filter((item: any) =>
       item.title.toLowerCase().includes(searchValue.toLowerCase())
     )
-    .map((item) => <PizzaBlock {...item} key={item.id} />);
+    .map((item: any) => <PizzaBlock {...item} key={item.id} />);
 
   return (
     <div className="container">
