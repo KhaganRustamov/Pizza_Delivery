@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { addItem } from "../../redux/slices/cartSlice";
+import { RootState } from "../../redux/store";
 
 import "./pizza-block.scss";
 
@@ -27,7 +28,7 @@ const PizzaBlock: React.FC<IPizzaBlock> = ({
 
   const dispatch = useDispatch();
 
-  const cartItem = useSelector((state: any) =>
+  const cartItem = useSelector((state: RootState) =>
     state.cart.items.find(
       (obj: any) =>
         obj.id === id &&
@@ -95,7 +96,7 @@ const PizzaBlock: React.FC<IPizzaBlock> = ({
             className="button button--outline button--add"
           >
             <span>Добавить</span>
-            {addCount > 0 && <i>{addCount}</i>}
+            {addCount && addCount > 0 && <i>{addCount}</i>}
           </button>
         </div>
       </div>
