@@ -21,15 +21,15 @@ const CartItem: React.FC<CartItems> = ({
   const values = { id, size, type };
 
   const onClickPlus = () => {
-    dispatch(addItem(values));
+    dispatch(addItem(values as CartItems));
   };
 
   const onClickMinus = () => {
-    dispatch(minusItem(values));
+    dispatch(minusItem(values as CartItems));
   };
 
   const onClickRemove = () => {
-    dispatch(removeItem(values));
+    dispatch(removeItem(values as CartItems));
   };
 
   return (
@@ -59,7 +59,7 @@ const CartItem: React.FC<CartItems> = ({
         </button>
       </div>
       <div className="cart__item-price">
-        <b>{price && count ? price * count : 0} ₽</b>
+        <b>{price * count} ₽</b>
       </div>
       <div className="cart__item-remove">
         <button

@@ -12,10 +12,7 @@ import trash from "../assets/img/trash.png";
 
 const Cart: React.FC = () => {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
-  const count = items.reduce(
-    (acc, item) => (item.count ? acc + item.count : 0),
-    0
-  );
+  const count = items.reduce((acc, item) => acc + item.count, 0);
 
   const dispatch = useDispatch();
 
@@ -43,7 +40,6 @@ const Cart: React.FC = () => {
         <div className="content__items">
           {items.map(
             (item) =>
-              item.count &&
               item.count > 0 && (
                 <CartItem key={item.id + item.size + item.type} {...item} />
               )

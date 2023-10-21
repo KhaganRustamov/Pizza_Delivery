@@ -11,10 +11,7 @@ import cart from "../../assets/img/cart.svg";
 
 const Header: React.FC = () => {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
-  const count = items.reduce(
-    (acc, item) => (item.count ? acc + item.count : 0),
-    0
-  );
+  const count = items.reduce((acc, item) => acc + item.count, 0);
 
   const location = useLocation();
 

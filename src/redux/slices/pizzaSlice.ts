@@ -11,10 +11,10 @@ interface IFetchPizzasArgs {
 export const fetchPizzas = createAsyncThunk<PizzaItems[], IFetchPizzasArgs>(
   "pizza/fetchPizzas",
   async ({ category, currentPage, sortBy, order }) => {
-    const res = await axios.get(
+    const { data } = await axios.get<PizzaItems[]>(
       `https://65264185917d673fd76be60b.mockapi.io/items?category=${category}&page=${currentPage}&limit=8&sortBy=${sortBy}&order=${order}`
     );
-    return res.data;
+    return data;
   }
 );
 
@@ -27,14 +27,20 @@ export interface PizzaItems {
   id: number;
 }
 
+enum Status {
+  LOADING = "loading",
+  SUCCESS = "success",
+  ERROR = "error",
+}
+
 interface PizzaInitialState {
   items: PizzaItems[];
-  status: string;
+  status: Status;
 }
 
 const initialState: PizzaInitialState = {
   items: [],
-  status: "",
+  status: Status.LOADING,
 };
 
 const pizzaSlice = createSlice({
@@ -44,16 +50,16 @@ const pizzaSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPizzas.pending, (state) => {
-        state.status = "loading";
+        state.status = Status.LOADING;
         state.items = [];
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
-        state.status = "success";
+        state.status = Status.SUCCESS;
         state.items = action.payload;
       })
 
       .addCase(fetchPizzas.rejected, (state) => {
-        state.status = "error";
+        state.status = Status.ERROR;
       })
       .addDefaultCase(() => {});
   },
