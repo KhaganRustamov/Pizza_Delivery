@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface IItems {
+export interface CartItems {
   id: number;
   title?: string;
   price?: number;
@@ -10,19 +10,19 @@ interface IItems {
   size: number;
 }
 
-interface IInitialState {
-  items: IItems[];
+interface CartInitialState {
+  items: CartItems[];
   totalPrice: number;
   totalCount: number;
 }
 
-const initialState: IInitialState = {
+const initialState: CartInitialState = {
   items: [],
   totalPrice: 0,
   totalCount: 0,
 };
 
-const findCartItem = (items: IItems[], payload: IItems) => {
+const findCartItem = (items: CartItems[], payload: CartItems) => {
   return items.find(
     (item) =>
       item.id === payload.id &&
@@ -31,7 +31,7 @@ const findCartItem = (items: IItems[], payload: IItems) => {
   );
 };
 
-type Action = PayloadAction<IItems>;
+type Action = PayloadAction<CartItems>;
 
 const cartSlice = createSlice({
   name: "cart",

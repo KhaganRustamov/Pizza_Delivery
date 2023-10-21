@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { changeCategory } from "../../redux/slices/filterSlice";
-
 import { RootState } from "../../redux/store";
 
 import "./categories.scss";

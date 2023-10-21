@@ -1,19 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
-import { changeSort } from "../../redux/slices/filterSlice";
+import { ISort, changeSort } from "../../redux/slices/filterSlice";
 import { RootState } from "../../redux/store";
 
 import "./sort.scss";
 
 import sortIcon from "../../assets/img/sort.png";
 
-interface ISortList {
-  name: string;
-  sortProperty: string;
-}
-
-export const sortList: ISortList[] = [
+export const sortList: ISort[] = [
   { name: "популярности", sortProperty: "-rating" },
   { name: "возрастающей цене", sortProperty: "price" },
   { name: "убывающей цене", sortProperty: "-price" },
@@ -26,7 +21,7 @@ const Sort: React.FC = () => {
   const sortRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
-  const onSelectList = (item: ISortList) => {
+  const onSelectList = (item: ISort) => {
     dispatch(changeSort(item));
     setShowList(false);
   };

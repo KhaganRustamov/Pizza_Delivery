@@ -45,14 +45,7 @@ const Cart: React.FC = () => {
             (item) =>
               item.count &&
               item.count > 0 && (
-                <CartItem
-                  key={item.id + item.size + item.type}
-                  {...item}
-                  title={item.title || ""}
-                  price={item.price || 0}
-                  imageUrl={item.imageUrl || ""}
-                  count={item.count || 0}
-                />
+                <CartItem key={item.id + item.size + item.type} {...item} />
               )
           )}
         </div>

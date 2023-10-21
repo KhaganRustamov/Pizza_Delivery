@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { useSearchParams } from "react-router-dom";
 
 import Categories from "../components/categories/Categories";
 import Sort from "../components/sort/Sort";
@@ -8,20 +7,16 @@ import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import Skeleton from "../components/pizzaBlock/Skeleton";
 import Pagination from "../components/pagination/Pagination";
 
-// import { changeFilters } from "../redux/slices/filterSlice";
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
-import { RootState } from "../redux/store";
+import { AppDispatch, RootState } from "../redux/store";
 
 const Home: React.FC = () => {
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const isMounted = useRef(false);
-  // const isSearch = useRef(false);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
-  const { items, status } = useSelector((state:RootState) => state.pizza);
+  const { items, status } = useSelector((state: RootState) => state.pizza);
 
   const { categoryId, sortType, currentPage, searchValue } = useSelector(
-    (state:RootState) => ({
+    (state: RootState) => ({
       categoryId: state.filter.categoryId,
       sortType: state.filter.sort.sortProperty,
       currentPage: state.filter.currentPage,
@@ -34,57 +29,15 @@ const Home: React.FC = () => {
   const order = sortType.includes("-") ? "desc" : "asc";
 
   useEffect(() => {
-    dispatch
-    //@ts-ignore
-    (fetchPizzas({ category, sortBy, order, currentPage }));
+    dispatch(fetchPizzas({ category, sortBy, order, currentPage }));
   }, [category, sortBy, order, currentPage]);
-
-  // useEffect(() => {
-  //   if (isMounted.current) {
-  //     setSearchParams({
-  //       sortProperty: sortType,
-  //       categoryId,
-  //       currentPage,
-  //     });
-  //   }
-  //   isMounted.current = true;
-  // }, [categoryId, sortType, currentPage, setSearchParams]);
-
-  // useEffect(() => {
-  //   if (!isSearch.current && !searchParams.toString()) {
-  //     const params = Object.fromEntries(searchParams.entries());
-  //     const sort = sortList.find(
-  //       (obj) => obj.sortProperty === params.sortProperty
-  //     );
-  //     if (sort) {
-  //       dispatch(
-  //         changeFilters({
-  //           ...params,
-  //           sort,
-  //         })
-  //       );
-  //     }
-  //     isSearch.current = true;
-  //   }
-  // }, [searchParams]);
-
-  // useEffect(() => {
-  //   if (!isSearch.current) {
-  //     getPizzas();
-  //   }
-  //   isSearch.current = false;
-  // }, [categoryId, sortType, currentPage]);
-
-  // useEffect(() => {
-  //   getPizzas();
-  // }, []);
 
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
   const pizzas = items
-    .filter((item: any) =>
+    .filter((item) =>
       item.title.toLowerCase().includes(searchValue.toLowerCase())
     )
-    .map((item: any) => <PizzaBlock {...item} key={item.id} />);
+    .map((item) => <PizzaBlock {...item} key={item.id} />);
 
   return (
     <div className="container">

@@ -1,18 +1,13 @@
 import { useDispatch } from "react-redux";
 
-import { addItem, removeItem, minusItem } from "../../redux/slices/cartSlice";
+import {
+  addItem,
+  removeItem,
+  minusItem,
+  CartItems,
+} from "../../redux/slices/cartSlice";
 
-interface ICartItem {
-  id: number;
-  title: string;
-  price: number;
-  imageUrl: string;
-  count: number;
-  type: string;
-  size: number;
-}
-
-const CartItem: React.FC<ICartItem> = ({
+const CartItem: React.FC<CartItems> = ({
   id,
   title,
   price,
@@ -64,7 +59,7 @@ const CartItem: React.FC<ICartItem> = ({
         </button>
       </div>
       <div className="cart__item-price">
-        <b>{price * count} ₽</b>
+        <b>{price && count ? price * count : 0} ₽</b>
       </div>
       <div className="cart__item-remove">
         <button
