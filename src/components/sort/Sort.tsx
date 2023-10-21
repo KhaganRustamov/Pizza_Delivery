@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
 import { changeSort } from "../../redux/slices/filterSlice";
+import { RootState } from "../../redux/store";
 
 import "./sort.scss";
 
@@ -21,7 +22,7 @@ export const sortList: ISortList[] = [
 
 const Sort: React.FC = () => {
   const [showList, setShowList] = useState(false);
-  const sort = useSelector((state: any) => state.filter.sort);
+  const sort = useSelector((state: RootState) => state.filter.sort);
   const sortRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
