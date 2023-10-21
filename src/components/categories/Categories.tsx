@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { changeCategory } from "../../redux/slices/filterSlice";
 
+import { RootState } from "../../redux/store";
+
 import "./categories.scss";
 
 const Categories: React.FC = () => {
-  const category = useSelector((state: any) => state.filter.categoryId);
+  const category = useSelector((state: RootState) => state.filter.categoryId);
   const dispatch = useDispatch();
 
   const categories = [

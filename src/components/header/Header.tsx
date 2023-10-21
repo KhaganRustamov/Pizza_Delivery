@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
+import { RootState } from "../../redux/store";
 import Search from "../search/Search";
 
 import "./header.scss";
@@ -9,8 +10,11 @@ import logo from "../../assets/img/pizza-logo.svg";
 import cart from "../../assets/img/cart.svg";
 
 const Header: React.FC = () => {
-  const { items, totalPrice } = useSelector((state:any) => state.cart);
-  const count = items.reduce((acc:number, item:any) => acc + item.count, 0);
+  const { items, totalPrice } = useSelector((state: RootState) => state.cart);
+  const count = items.reduce(
+    (acc, item) => (item.count ? acc + item.count : 0),
+    0
+  );
 
   const location = useLocation();
 
