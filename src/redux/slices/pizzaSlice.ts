@@ -19,11 +19,7 @@ const initialState = {
 const pizzaSlice = createSlice({
   name: "pizza",
   initialState,
-  // reducers: {
-  //   setItems(state, action) {
-  //     state.items = action.payload;
-  //   },
-  // },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchPizzas.pending, (state) => {
@@ -41,7 +37,5 @@ const pizzaSlice = createSlice({
       .addDefaultCase(() => {});
   },
 });
-
-// export const { setItems } = pizzaSlice.actions;
 
 export default pizzaSlice.reducer;

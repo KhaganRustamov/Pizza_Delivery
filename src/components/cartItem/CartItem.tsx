@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 
 import { addItem, removeItem, minusItem } from "../../redux/slices/cartSlice";
 
-interface CartProps {
+interface ICartItem {
   id: number;
   title: string;
   price: number;
@@ -12,7 +12,7 @@ interface CartProps {
   size: number;
 }
 
-const CartItem: React.FC<CartProps> = ({
+const CartItem: React.FC<ICartItem> = ({
   id,
   title,
   price,

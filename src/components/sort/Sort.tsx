@@ -7,12 +7,12 @@ import "./sort.scss";
 
 import sortIcon from "../../assets/img/sort.png";
 
-interface ISort {
+interface ISortList {
   name: string;
   sortProperty: string;
 }
 
-export const sortList: ISort[] = [
+export const sortList: ISortList[] = [
   { name: "популярности", sortProperty: "-rating" },
   { name: "возрастающей цене", sortProperty: "price" },
   { name: "убывающей цене", sortProperty: "-price" },
@@ -25,7 +25,7 @@ const Sort: React.FC = () => {
   const sortRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
-  const onSelectList = (item: ISort) => {
+  const onSelectList = (item: ISortList) => {
     dispatch(changeSort(item));
     setShowList(false);
   };

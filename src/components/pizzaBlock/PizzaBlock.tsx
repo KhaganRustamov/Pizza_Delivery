@@ -5,7 +5,7 @@ import { addItem } from "../../redux/slices/cartSlice";
 
 import "./pizza-block.scss";
 
-interface PizzaBLockProps {
+interface IPizzaBlock {
   imageUrl: string;
   title: string;
   types: string[];
@@ -14,7 +14,7 @@ interface PizzaBLockProps {
   id: number;
 }
 
-const PizzaBlock: React.FC<PizzaBLockProps> = ({
+const PizzaBlock: React.FC<IPizzaBlock> = ({
   imageUrl,
   title,
   types,
