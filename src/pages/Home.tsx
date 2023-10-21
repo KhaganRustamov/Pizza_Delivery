@@ -10,6 +10,7 @@ import Pagination from "../components/pagination/Pagination";
 
 // import { changeFilters } from "../redux/slices/filterSlice";
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import { RootState } from "../redux/store";
 
 const Home: React.FC = () => {
   // const [searchParams, setSearchParams] = useSearchParams();
@@ -17,10 +18,10 @@ const Home: React.FC = () => {
   // const isSearch = useRef(false);
   const dispatch = useDispatch();
 
-  const { items, status } = useSelector((state:any) => state.pizza);
+  const { items, status } = useSelector((state:RootState) => state.pizza);
 
   const { categoryId, sortType, currentPage, searchValue } = useSelector(
-    (state:any) => ({
+    (state:RootState) => ({
       categoryId: state.filter.categoryId,
       sortType: state.filter.sort.sortProperty,
       currentPage: state.filter.currentPage,

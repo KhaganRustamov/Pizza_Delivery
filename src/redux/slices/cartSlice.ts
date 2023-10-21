@@ -31,11 +31,13 @@ const findCartItem = (items: IItems[], payload: IItems) => {
   );
 };
 
+type Action = PayloadAction<IItems>;
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem(state, action: PayloadAction<IItems>) {
+    addItem(state, action: Action) {
       const foundItem = findCartItem(state.items, action.payload);
 
       if (foundItem && foundItem.count) {
@@ -51,7 +53,7 @@ const cartSlice = createSlice({
       );
     },
 
-    minusItem(state, action: PayloadAction<IItems>) {
+    minusItem(state, action: Action) {
       const foundItem = findCartItem(state.items, action.payload);
 
       if (foundItem && foundItem.count && foundItem.count > 0) {
@@ -60,7 +62,7 @@ const cartSlice = createSlice({
       }
     },
 
-    removeItem(state, action: PayloadAction<IItems>) {
+    removeItem(state, action: Action) {
       const foundItem = findCartItem(state.items, action.payload);
 
       if (foundItem && foundItem.count) {
