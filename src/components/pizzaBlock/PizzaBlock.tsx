@@ -29,7 +29,7 @@ const PizzaBlock: React.FC<PizzaItems> = ({
     )
   );
 
-  const addCount = cartItem ? cartItem.count : 0;
+  const addCount = cartItem ? cartItem.count : "";
 
   const coefficients = [
     [1.0, 1.2, 1.5],
