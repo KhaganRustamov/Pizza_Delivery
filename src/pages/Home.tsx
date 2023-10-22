@@ -29,6 +29,14 @@ const Home: React.FC = () => {
   const order = sortType.includes("-") ? "desc" : "asc";
 
   useEffect(() => {
+    const urlSearchParams = new URLSearchParams();
+    urlSearchParams.set("category", category.toString());
+    urlSearchParams.set("sortBy", sortBy);
+    urlSearchParams.set("order", order);
+    urlSearchParams.set("currentPage", currentPage.toString());
+
+    window.history.pushState(null, "", `?${urlSearchParams.toString()}`);
+
     dispatch(fetchPizzas({ category, sortBy, order, currentPage }));
   }, [category, sortBy, order, currentPage]);
 
