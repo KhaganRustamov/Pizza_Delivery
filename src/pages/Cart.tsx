@@ -34,7 +34,7 @@ const Cart: React.FC = () => {
           </h2>
           <div onClick={deleteItems} className="cart__clear">
             <img src={trash} width="20" height="20"></img>
-            <span>Очистить корзину</span>
+            <span>Clear cart</span>
           </div>
         </div>
         <div className="content__items">
@@ -49,11 +49,11 @@ const Cart: React.FC = () => {
           <div className="cart__bottom-details">
             <span>
               {" "}
-              Всего пицц: <b>{count} шт.</b>{" "}
+              Total pizzas: <b>{count}</b>{" "}
             </span>
             <span>
               {" "}
-              Сумма заказа: <b>{totalPrice} ₽</b>{" "}
+              Total price: <b>{totalPrice} $</b>{" "}
             </span>
           </div>
           <div className="cart__bottom-buttons">
@@ -61,10 +61,10 @@ const Cart: React.FC = () => {
               to="/"
               className="button button--outline button--add go-back-btn"
             >
-              <span>Вернуться назад</span>
+              <span>Back</span>
             </Link>
             <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>Buy now</span>
             </div>
           </div>
         </div>

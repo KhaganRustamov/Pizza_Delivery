@@ -77,18 +77,18 @@ const PizzaBlock: React.FC<PizzaItems> = ({
                 onClick={() => setActiveSize(i)}
                 className={activeSize === i ? "active" : ""}
               >
-                {size} см.
+                {size} cm.
               </li>
             ))}
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">{calculatedPrice} ₽</div>
+          <div className="pizza-block__price">{calculatedPrice} $</div>
           <button
             onClick={onClickAdd}
             className="button button--outline button--add"
           >
-            <span>Добавить</span>
+            <span>Add</span>
             {addCount > 0 && <i>{addCount}</i>}
           </button>
         </div>

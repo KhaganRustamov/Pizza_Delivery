@@ -9,10 +9,10 @@ import "./sort.scss";
 import sortIcon from "../../assets/img/sort.png";
 
 export const sortList: ISort[] = [
-  { name: "популярности", sortProperty: "-rating" },
-  { name: "возрастающей цене", sortProperty: "price" },
-  { name: "убывающей цене", sortProperty: "-price" },
-  { name: "алфавиту", sortProperty: "title" },
+  { name: "rating", sortProperty: "-rating" },
+  { name: "increasing price", sortProperty: "price" },
+  { name: "decreasing price", sortProperty: "-price" },
+  { name: "alphabet", sortProperty: "title" },
 ];
 
 const Sort: React.FC = () => {
@@ -42,7 +42,7 @@ const Sort: React.FC = () => {
     <div ref={sortRef} className="sort">
       <div className="sort__label">
         <img src={sortIcon} width="20" height="20"></img>
-        <b>Сортировка по:</b>
+        <b>Sort by:</b>
         <span onClick={() => setShowList(!showList)}>{sort.name}</span>
       </div>
       {showList && (

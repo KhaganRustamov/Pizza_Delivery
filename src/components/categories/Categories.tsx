@@ -9,14 +9,7 @@ const Categories: React.FC = () => {
   const category = useSelector((state: RootState) => state.filter.categoryId);
   const dispatch = useDispatch();
 
-  const categories = [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
+  const categories = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Mixed"];
 
   return (
     <div className="categories">

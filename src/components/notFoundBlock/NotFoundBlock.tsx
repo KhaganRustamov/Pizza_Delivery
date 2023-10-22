@@ -3,11 +3,7 @@ import styles from "./notFoundBlock.module.scss";
 const NotFoundBlock: React.FC = () => {
   return (
     <div className={styles.root}>
-      <h1>
-        <span>😕</span>
-        <br />
-        По вашему запросу ничего не найдено
-      </h1>
+      <h1>No results were found for your request</h1>
     </div>
   );
 };

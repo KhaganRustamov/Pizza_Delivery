@@ -53,11 +53,11 @@ const Home: React.FC = () => {
         <Categories />
         <Sort />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">All pizzas</h2>
       {status === "error" ? (
         <div className="content__error-info">
-          <h2>Произошла ошибка 😕</h2>
-          <p>Не удалось получить список пицц</p>
+          <h2>Error</h2>
+          <p>Failed to get list of pizzas</p>
         </div>
       ) : (
         <div className="content__items">
