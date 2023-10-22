@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { RootState } from "../../redux/store";
 import Search from "../search/Search";
@@ -12,8 +12,6 @@ import cart from "../../assets/img/cart.svg";
 const Header: React.FC = () => {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
   const count = items.reduce((acc, item) => acc + item.count, 0);
-
-  const location = useLocation();
 
   return (
     <div className="header">
@@ -28,14 +26,12 @@ const Header: React.FC = () => {
         </Link>
         <Search />
         <div className="header__cart">
-          {location.pathname !== "/cart" && (
-            <Link to="/cart" className="button button--cart">
-              <span>{totalPrice} ₽</span>
-              <div className="button__delimiter"></div>
-              <img className="cart" src={cart} alt="Cart" />
-              <span>{count}</span>
-            </Link>
-          )}
+          <Link to="/cart" className="button button--cart">
+            <span>{totalPrice} ₽</span>
+            <div className="button__delimiter"></div>
+            <img className="cart" src={cart} alt="Cart" />
+            <span>{count}</span>
+          </Link>
         </div>
       </div>
     </div>

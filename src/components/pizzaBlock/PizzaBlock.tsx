@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { addItem } from "../../redux/slices/cartSlice";
+import { CartItems, addItem } from "../../redux/slices/cartSlice";
 import { PizzaItems } from "../../redux/slices/pizzaSlice";
 import { RootState } from "../../redux/store";
 
@@ -29,7 +29,7 @@ const PizzaBlock: React.FC<PizzaItems> = ({
     )
   );
 
-  const addCount = cartItem ? cartItem.count : "";
+  const addCount = cartItem ? cartItem.count : 0;
 
   const coefficients = [
     [1.0, 1.2, 1.5],
@@ -41,7 +41,7 @@ const PizzaBlock: React.FC<PizzaItems> = ({
   );
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItems = {
       id,
       title,
       imageUrl,
@@ -89,7 +89,7 @@ const PizzaBlock: React.FC<PizzaItems> = ({
             className="button button--outline button--add"
           >
             <span>Добавить</span>
-            {addCount && addCount > 0 && <i>{addCount}</i>}
+            {addCount > 0 && <i>{addCount}</i>}
           </button>
         </div>
       </div>
