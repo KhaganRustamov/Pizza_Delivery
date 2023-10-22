@@ -18,18 +18,18 @@ const CartItem: React.FC<CartItems> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const values = { id, size, type };
+  const values = { id, size, type } as CartItems;
 
   const onClickPlus = () => {
-    dispatch(addItem(values as CartItems));
+    dispatch(addItem(values));
   };
 
   const onClickMinus = () => {
-    dispatch(minusItem(values as CartItems));
+    dispatch(minusItem(values));
   };
 
   const onClickRemove = () => {
-    dispatch(removeItem(values as CartItems));
+    dispatch(removeItem(values));
   };
 
   return (
