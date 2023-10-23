@@ -76,14 +76,6 @@
     }
   }
 
-  &__delimiter {
-    width: 1px;
-    height: 25px;
-    background-color: rgba(255, 255, 255, 0.25);
-    margin-left: 14px;
-    margin-right: 14px;
-  }
-
   &--add {
     svg {
       margin-right: 2px;
@@ -121,10 +113,8 @@
   &--cart {
     display: flex;
     align-items: center;
-    line-height: 23px;
     padding: 12px 25px;
     justify-content: center;
-    width: 176px;
 
     svg {
       margin-right: 8px;

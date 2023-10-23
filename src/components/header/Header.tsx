@@ -10,7 +10,7 @@ import logo from "../../assets/img/pizza-logo.svg";
 import cart from "../../assets/img/cart.svg";
 
 const Header: React.FC = () => {
-  const { items, totalPrice } = useSelector((state: RootState) => state.cart);
+  const { items } = useSelector((state: RootState) => state.cart);
   const count = items.reduce((acc, item) => acc + item.count, 0);
 
   return (
@@ -20,15 +20,13 @@ const Header: React.FC = () => {
           <div className="header__logo">
             <img width="38" src={logo} alt="Pizza logo" />
             <div>
-              <h1>pizza delivery</h1>
+              <h1>pizza store</h1>
             </div>
           </div>
         </Link>
         <Search />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>{totalPrice} $</span>
-            <div className="button__delimiter"></div>
             <img className="cart" src={cart} alt="Cart" />
             <span>{count}</span>
           </Link>
