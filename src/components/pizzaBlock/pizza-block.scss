@@ -4,10 +4,16 @@
   width: 280px;
   text-align: center;
   margin-bottom: 65px;
+  height: 430px;
 
   &-wrapper {
     display: flex;
     justify-content: center;
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 10px 5px 15px 5px rgba(0, 0, 0, 0.1);
+      transition: 0.5s transform;
+    }
   }
 
   &__image {

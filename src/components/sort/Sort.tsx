@@ -9,10 +9,10 @@ import "./sort.scss";
 import sortIcon from "../../assets/img/sort.png";
 
 export const sortList: ISort[] = [
-  { name: "rating", sortProperty: "-rating" },
+  { name: "best rating", sortProperty: "-rating" },
   { name: "increasing price", sortProperty: "price" },
   { name: "decreasing price", sortProperty: "-price" },
-  { name: "alphabet", sortProperty: "title" },
+  { name: "alphabet A-Z", sortProperty: "title" },
 ];
 
 const Sort: React.FC = () => {
