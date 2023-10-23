@@ -8,6 +8,11 @@
 
 .content {
   padding: 40px 0;
+  @media (max-width: 600px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   &__error-info {
     margin: 100px auto;
@@ -121,6 +126,9 @@
 
   .content__items {
     display: block;
+    @media (max-width: 700px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__item {
@@ -225,7 +233,7 @@
 
         span {
           padding-bottom: 3px;
-          padding-right: 1px;
+          padding-left: 1px;
           color: gray;
         }
         &:hover,
