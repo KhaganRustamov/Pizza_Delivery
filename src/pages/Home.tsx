@@ -54,16 +54,21 @@ const Home: React.FC = () => {
         <Sort />
       </div>
       <h2 className="content__title">All pizzas</h2>
-      {status === "error" ? (
+      {status === "error" && (
         <div className="content__error-info">
           <h2>Error</h2>
           <p>Failed to get list of pizzas</p>
         </div>
-      ) : (
-        <div className="content__items">
+      )}
+      {searchValue && pizzas.length === 0 && (
+        <div className="content__error-info">
+          <h2>No results found</h2>
+          <p>No pizzas match your search.</p>
+        </div>
+      )}
+      <div className="content__items">
         {status === "loading" ? skeletons : pizzas}
       </div>
-      )}
       <Pagination />
     </div>
   );
