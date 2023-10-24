@@ -57,7 +57,6 @@ const pizzaSlice = createSlice({
         state.status = Status.SUCCESS;
         state.items = action.payload;
       })
-
       .addCase(fetchPizzas.rejected, (state) => {
         state.status = Status.ERROR;
       })

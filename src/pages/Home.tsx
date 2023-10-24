@@ -64,7 +64,6 @@ const Home: React.FC = () => {
           {status === "loading" ? skeletons : pizzas}
         </div>
       )}
-
       <Pagination />
     </div>
   );
