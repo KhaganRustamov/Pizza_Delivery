@@ -61,8 +61,8 @@ const Home: React.FC = () => {
         </div>
       ) : (
         <div className="content__items">
-          {status === "loading" ? skeletons : pizzas}
-        </div>
+        {status === "loading" ? skeletons : pizzas}
+      </div>
       )}
       <Pagination />
     </div>
