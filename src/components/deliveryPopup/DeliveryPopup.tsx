@@ -30,8 +30,8 @@ const DeliveryPopup = () => {
   };
 
   return (
-    <div>
-      <div className="modal">
+    <>
+      <div className="modal active">
         <div className="modal-content">
           <span className="close" onClick={() => dispatch(closePopup())}>
             &times;
@@ -40,6 +40,7 @@ const DeliveryPopup = () => {
           <form>
             <label htmlFor="cardNumber">Номер карты:</label>
             <input
+              className="delivery-input"
               type="text"
               id="cardNumber"
               name="cardNumber"
@@ -48,19 +49,20 @@ const DeliveryPopup = () => {
             />
             <label htmlFor="expiryDate">Срок действия:</label>
             <input
+              className="delivery-input"
               type="text"
               id="expiryDate"
               name="expiryDate"
               value={expiryDate}
               onChange={(e) => dispatch(handleExpiryDateChange(e.target.value))}
             />
-            <button onClick={handleFetchPopup} type="submit">
+            <button className="submit" onClick={handleFetchPopup} type="submit">
               Оформить заказ
             </button>
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

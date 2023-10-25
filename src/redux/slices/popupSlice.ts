@@ -8,18 +8,24 @@ export const fetchPopup = createAsyncThunk("popup/fetchPopup", async () => {
   return data;
 });
 
+enum PopupStatus {
+  LOADING = "loading",
+  SUCCESS = "success",
+  ERROR = "error",
+}
+
 interface PopupInitialState {
   isPopupOpen: boolean;
   cardNumber: string;
   expiryDate: string;
-  status: string;
+  status: PopupStatus;
 }
 
 const initialState: PopupInitialState = {
   isPopupOpen: false,
   cardNumber: "",
   expiryDate: "",
-  status: "loading",
+  status: PopupStatus.LOADING,
 };
 
 const popupSlice = createSlice({
@@ -45,13 +51,13 @@ const popupSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPopup.pending, (state) => {
-        state.status = "loading";
+        state.status = PopupStatus.LOADING;
       })
       .addCase(fetchPopup.fulfilled, (state) => {
-        state.status = "success";
+        state.status = PopupStatus.SUCCESS;
       })
       .addCase(fetchPopup.rejected, (state) => {
-        state.status = "error";
+        state.status = PopupStatus.ERROR;
       })
       .addDefaultCase(() => {});
   },
