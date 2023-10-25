@@ -3,22 +3,21 @@ import { Link } from "react-router-dom";
 
 import { clearItems } from "../redux/slices/cartSlice";
 import { RootState } from "../redux/store";
+import { openPopup } from "../redux/slices/popupSlice";
 
 import CartItem from "../components/cartItem/CartItem";
 import CartEmpty from "../components/cartEmpty/CartEmpty";
+import DeliveryPopup from "../components/deliveryPopup/DeliveryPopup";
 
 import cart from "../assets/img/cart.png";
 import trash from "../assets/img/trash.png";
 
 const Cart: React.FC = () => {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
+  const { isPopupOpen } = useSelector((state: RootState) => state.popup);
   const count = items.reduce((acc, item) => acc + item.count, 0);
 
   const dispatch = useDispatch();
-
-  const deleteItems = () => {
-    dispatch(clearItems());
-  };
 
   if (!count) {
     return <CartEmpty />;
@@ -32,7 +31,7 @@ const Cart: React.FC = () => {
             <img src={cart}></img>
             Cart
           </h2>
-          <div onClick={deleteItems} className="cart__clear">
+          <div onClick={() => dispatch(clearItems())} className="cart__clear">
             <img src={trash} width="20" height="20"></img>
             <span>Clear cart</span>
           </div>
@@ -63,10 +62,14 @@ const Cart: React.FC = () => {
             >
               <span>Back</span>
             </Link>
-            <div className="button pay-btn">
+            <div
+              onClick={() => dispatch(openPopup())}
+              className="button pay-btn"
+            >
               <span>Buy now</span>
             </div>
           </div>
+            {isPopupOpen && <DeliveryPopup />}
         </div>
       </div>
     </div>
