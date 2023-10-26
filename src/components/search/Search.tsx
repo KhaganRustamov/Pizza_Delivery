@@ -20,7 +20,9 @@ const Search: React.FC = () => {
   const onClear = () => {
     setValue("");
     dispatch(changeSearchValue(""));
-    inputRef.current?.focus();
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   const testDebounce = useCallback(
