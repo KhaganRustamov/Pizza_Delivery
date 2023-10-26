@@ -94,7 +94,7 @@ const DeliveryPopup = () => {
           <span className="close" onClick={() => dispatch(closePopup())}>
             &times;
           </span>
-          <h2>Введите данные банковской карты и номер телефона</h2>
+          <h2>Введите данные</h2>
           <form>
             <label htmlFor="cardNumber">Номер карты:</label>
             <input

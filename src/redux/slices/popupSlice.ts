@@ -45,7 +45,6 @@ const popupSlice = createSlice({
     handleCardNumberChange(state, action: PayloadAction<string>) {
       state.cardNumber = action.payload;
     },
-
     handleExpiryDateChange(state, action: PayloadAction<string>) {
       state.expiryDate = action.payload;
     },
