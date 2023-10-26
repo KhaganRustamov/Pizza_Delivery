@@ -28,7 +28,7 @@ const Sort: React.FC = () => {
 
   useEffect(() => {
     const handleBodyClick = (e: Event) => {
-      if (!sortRef.current?.contains(e.target as Node)) {
+      if (sortRef.current && !sortRef.current.contains(e.target as Node)) {
         setShowList(false);
       }
     };
