@@ -18,6 +18,7 @@ interface PopupInitialState {
   isPopupOpen: boolean;
   cardNumber: string;
   expiryDate: string;
+  phoneNumber: string;
   status: PopupStatus;
 }
 
@@ -25,6 +26,7 @@ const initialState: PopupInitialState = {
   isPopupOpen: false,
   cardNumber: "",
   expiryDate: "",
+  phoneNumber: "",
   status: PopupStatus.LOADING,
 };
 
@@ -47,6 +49,9 @@ const popupSlice = createSlice({
     handleExpiryDateChange(state, action: PayloadAction<string>) {
       state.expiryDate = action.payload;
     },
+    handlePhoneNumberChange(state, action: PayloadAction<string>) {
+      state.phoneNumber = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -68,6 +73,7 @@ export const {
   closePopup,
   handleCardNumberChange,
   handleExpiryDateChange,
+  handlePhoneNumberChange,
 } = popupSlice.actions;
 
 export default popupSlice.reducer;
