@@ -58,7 +58,7 @@ const DeliveryPopup = () => {
       !isValidPhoneNumber(phoneNumber)
     ) {
       setErrorMessage(
-        "Пожалуйста, введите корректные данные карты, срока действия и номера телефона."
+        "Please enter the correct details"
       );
       return;
     }
@@ -94,29 +94,29 @@ const DeliveryPopup = () => {
           <span className="close" onClick={() => dispatch(closePopup())}>
             &times;
           </span>
-          <h2>Введите данные</h2>
+          <h2>Enter your details</h2>
           <form>
-            <label htmlFor="cardNumber">Номер карты:</label>
+            <label htmlFor="cardNumber">Card number:</label>
             <input
               className="delivery-input"
               type="text"
               id="cardNumber"
               name="cardNumber"
               value={cardNumber}
-              placeholder="Введите номер карты"
+              placeholder="Enter card number"
               onChange={handleCardNumberInput}
             />
-            <label htmlFor="expiryDate">Срок действия:</label>
+            <label htmlFor="expiryDate">Validity:</label>
             <input
               className="delivery-input"
               type="text"
               id="expiryDate"
               name="expiryDate"
               value={expiryDate}
-              placeholder="Введите срок действия"
+              placeholder="Enter expiration date"
               onChange={handleExpiryDateInput}
             />
-            <label htmlFor="phoneNumber">Номер телефона:</label>
+            <label htmlFor="phoneNumber">Phone number:</label>
             <input
               className="delivery-input"
               type="text"
@@ -129,8 +129,12 @@ const DeliveryPopup = () => {
             {errorMessage && (
               <div className="error-message">{errorMessage}</div>
             )}
-            <button className="submit" onClick={handleFetchPopup} type="submit">
-              Оформить заказ
+            <button
+              className="button_submit"
+              onClick={handleFetchPopup}
+              type="submit"
+            >
+              Order
             </button>
           </form>
         </div>

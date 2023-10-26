@@ -53,6 +53,14 @@
     }
   }
 
+  &_submit {
+    margin-top: 20px;
+    border-radius: 20px;
+    width: 100px;
+    height: 35px;
+    font-size: 17px;
+  }
+
   &--outline {
     background-color: #fff;
     border-color: $orange;
