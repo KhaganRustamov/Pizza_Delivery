@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import InputMask from "react-input-mask";
 
 import {
   closePopup,
@@ -59,7 +58,6 @@ const DeliveryPopup = () => {
             <Form>
               <label htmlFor="cardNumber">Card number:</label>
               <Field
-                as={InputMask}
                 className="delivery-input"
                 type="text"
                 id="cardNumber"
@@ -74,7 +72,6 @@ const DeliveryPopup = () => {
               />
               <label htmlFor="expiryDate">Validity:</label>
               <Field
-                as={InputMask}
                 className="delivery-input"
                 type="text"
                 id="expiryDate"
@@ -89,7 +86,6 @@ const DeliveryPopup = () => {
               />
               <label htmlFor="phoneNumber">Phone number:</label>
               <Field
-                as={InputMask}
                 className="delivery-input"
                 type="text"
                 id="phoneNumber"
