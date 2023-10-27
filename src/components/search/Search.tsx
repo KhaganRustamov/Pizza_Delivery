@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useRef, useState } from "react";
-
+import { useDispatch } from "react-redux";
 // @ts-ignore
 import debounce from "lodash.debounce";
 
@@ -9,7 +9,6 @@ import styles from "./search.module.scss";
 
 import search from "../../assets/img/search.png";
 import clear from "../../assets/img/delete.png";
-import { useDispatch } from "react-redux";
 
 const Search: React.FC = () => {
   const dispatch = useDispatch();

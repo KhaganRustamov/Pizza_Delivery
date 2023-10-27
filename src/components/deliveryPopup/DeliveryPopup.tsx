@@ -1,5 +1,8 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import InputMask from "react-input-mask";
+
 import {
   closePopup,
   handleCardNumberChange,
@@ -7,64 +10,29 @@ import {
   fetchPopup,
   handlePhoneNumberChange,
 } from "../../redux/slices/popupSlice";
-
 import { AppDispatch, RootState } from "../../redux/store";
 
 import "./deliveryPopup.scss";
 
-import { MouseEventHandler, ChangeEvent } from "react";
-
 const DeliveryPopup = () => {
+  const validationSchema = Yup.object().shape({
+    cardNumber: Yup.string()
+      .matches(/^\d{4} \d{4} \d{4} \d{4}$/, "Invalid card number")
+      .required("Card number is required"),
+    expiryDate: Yup.string()
+      .matches(/^(0[1-9]|1[0-2])\/\d{2}$/, "Invalid expiry date (MM/YY)")
+      .required("Expiry date is required"),
+    phoneNumber: Yup.string()
+      .matches(/^\d{3} \d{3} \d{2} \d{2}$/, "Invalid phone number")
+      .required("Phone number is required"),
+  });
+
   const { cardNumber, expiryDate, phoneNumber } = useSelector(
     (state: RootState) => state.popup
   );
   const dispatch: AppDispatch = useDispatch();
 
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleCardNumberInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const cardNumberValue = e.target.value.replace(/\D/g, "").slice(0, 16);
-    const formattedCardNumber = cardNumberValue.match(/.{1,4}/g);
-    const formattedValue = formattedCardNumber
-      ? formattedCardNumber.join(" ")
-      : "";
-    dispatch(handleCardNumberChange(formattedValue));
-  };
-
-  const handleExpiryDateInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const expiryDateValue = e.target.value.replace(/\D/g, "").slice(0, 4);
-    const formattedExpiryDate = expiryDateValue.match(/.{1,2}/g);
-    const formattedValue = formattedExpiryDate
-      ? formattedExpiryDate.join(" / ")
-      : "";
-    dispatch(handleExpiryDateChange(formattedValue));
-  };
-
-  const handlePhoneNumberInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const phoneNumberValue = e.target.value.replace(/\D/g, "").slice(0, 10);
-    const formattedPhoneNumber = phoneNumberValue.replace(
-      /(\d{3})(\d{3})(\d{2})(\d{2})/,
-      "$1 $2 $3 $4"
-    );
-    dispatch(handlePhoneNumberChange(formattedPhoneNumber));
-  };
-
-  const handleFetchPopup: MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-
-    if (
-      !isValidCardNumber(cardNumber) ||
-      !isValidExpiryDate(expiryDate) ||
-      !isValidPhoneNumber(phoneNumber)
-    ) {
-      setErrorMessage(
-        "Please enter the correct details"
-      );
-      return;
-    }
-
-    setErrorMessage("");
-
+  const handleSubmit = () => {
     dispatch(fetchPopup()).then((result) => {
       if (fetchPopup.fulfilled.match(result)) {
         dispatch(handleCardNumberChange(""));
@@ -75,18 +43,6 @@ const DeliveryPopup = () => {
     });
   };
 
-  const isValidCardNumber = (cardNumber: string) => {
-    return cardNumber.replace(/\s/g, "").length === 16;
-  };
-
-  const isValidExpiryDate = (expiryDate: string) => {
-    return expiryDate.replace(/\s/g, "").length === 5;
-  };
-
-  const isValidPhoneNumber = (phoneNumber: string) => {
-    return /^\d{3} \d{3} \d{2} \d{2}$/.test(phoneNumber);
-  };
-
   return (
     <>
       <div className="modal">
@@ -95,48 +51,62 @@ const DeliveryPopup = () => {
             &times;
           </span>
           <h2>Enter your details</h2>
-          <form>
-            <label htmlFor="cardNumber">Card number:</label>
-            <input
-              className="delivery-input"
-              type="text"
-              id="cardNumber"
-              name="cardNumber"
-              value={cardNumber}
-              placeholder="Enter card number"
-              onChange={handleCardNumberInput}
-            />
-            <label htmlFor="expiryDate">Validity:</label>
-            <input
-              className="delivery-input"
-              type="text"
-              id="expiryDate"
-              name="expiryDate"
-              value={expiryDate}
-              placeholder="Enter expiration date"
-              onChange={handleExpiryDateInput}
-            />
-            <label htmlFor="phoneNumber">Phone number:</label>
-            <input
-              className="delivery-input"
-              type="text"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={phoneNumber}
-              placeholder="055 555 55 55"
-              onChange={handlePhoneNumberInput}
-            />
-            {errorMessage && (
-              <div className="error-message">{errorMessage}</div>
-            )}
-            <button
-              className="button_submit"
-              onClick={handleFetchPopup}
-              type="submit"
-            >
-              Order
-            </button>
-          </form>
+          <Formik
+            initialValues={{ cardNumber, expiryDate, phoneNumber }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            <Form>
+              <label htmlFor="cardNumber">Card number:</label>
+              <Field
+                as={InputMask}
+                className="delivery-input"
+                type="text"
+                id="cardNumber"
+                name="cardNumber"
+                placeholder="Enter card number"
+                inputMode="numeric"
+              />
+              <ErrorMessage
+                name="cardNumber"
+                component="div"
+                className="error-message"
+              />
+              <label htmlFor="expiryDate">Validity:</label>
+              <Field
+                as={InputMask}
+                className="delivery-input"
+                type="text"
+                id="expiryDate"
+                name="expiryDate"
+                placeholder="Enter expiration date"
+                inputMode="numeric"
+              />
+              <ErrorMessage
+                name="expiryDate"
+                component="div"
+                className="error-message"
+              />
+              <label htmlFor="phoneNumber">Phone number:</label>
+              <Field
+                as={InputMask}
+                className="delivery-input"
+                type="text"
+                id="phoneNumber"
+                name="phoneNumber"
+                placeholder="055 555 55 55"
+                inputMode="numeric"
+              />
+              <ErrorMessage
+                name="phoneNumber"
+                component="div"
+                className="error-message"
+              />
+              <button className="button_submit" type="submit">
+                Order
+              </button>
+            </Form>
+          </Formik>
         </div>
       </div>
     </>
