@@ -42,14 +42,12 @@ const popupSlice = createSlice({
       state.isPopupOpen = false;
     },
 
-    handleCardNumberChange(state, action: PayloadAction<string>) {
-      state.cardNumber = action.payload;
-    },
-    handleExpiryDateChange(state, action: PayloadAction<string>) {
-      state.expiryDate = action.payload;
-    },
-    handlePhoneNumberChange(state, action: PayloadAction<string>) {
-      state.phoneNumber = action.payload;
+    handleFieldChange(
+      state,
+      action: PayloadAction<{ field: "cardNumber" | "expiryDate" | "phoneNumber"; value: string }>
+    ) {
+      const { field, value } = action.payload;
+      state[field] = value;
     },
   },
   extraReducers: (builder) => {
@@ -70,9 +68,7 @@ const popupSlice = createSlice({
 export const {
   openPopup,
   closePopup,
-  handleCardNumberChange,
-  handleExpiryDateChange,
-  handlePhoneNumberChange,
+  handleFieldChange,
 } = popupSlice.actions;
 
 export default popupSlice.reducer;

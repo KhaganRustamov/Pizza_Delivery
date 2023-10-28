@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import {
   closePopup,
-  handleCardNumberChange,
-  handleExpiryDateChange,
   fetchPopup,
-  handlePhoneNumberChange,
+  handleFieldChange,
 } from "../../redux/slices/popupSlice";
 import { AppDispatch, RootState } from "../../redux/store";
 
@@ -16,13 +15,13 @@ import "./deliveryPopup.scss";
 const DeliveryPopup = () => {
   const validationSchema = Yup.object().shape({
     cardNumber: Yup.string()
-      .matches(/^\d{4} \d{4} \d{4} \d{4}$/, "Invalid card number")
+      .matches(/^\d{4}\d{4}\d{4}\d{4}$/, "Your card must contain 16 numbers")
       .required("Card number is required"),
     expiryDate: Yup.string()
       .matches(/^(0[1-9]|1[0-2])\/\d{2}$/, "Invalid expiry date (MM/YY)")
       .required("Expiry date is required"),
     phoneNumber: Yup.string()
-      .matches(/^\d{3} \d{3} \d{2} \d{2}$/, "Invalid phone number")
+      .matches(/^\d{3}\d{3}\d{2}\d{2}$/, "Your phone must contain 10 numbers")
       .required("Phone number is required"),
   });
 
@@ -31,12 +30,14 @@ const DeliveryPopup = () => {
   );
   const dispatch: AppDispatch = useDispatch();
 
+  const popupRef = useRef<HTMLDivElement>(null);
+
   const handleSubmit = () => {
     dispatch(fetchPopup()).then((result) => {
       if (fetchPopup.fulfilled.match(result)) {
-        dispatch(handleCardNumberChange(""));
-        dispatch(handleExpiryDateChange(""));
-        dispatch(handlePhoneNumberChange(""));
+        dispatch(handleFieldChange({ field: "cardNumber", value: "" }));
+        dispatch(handleFieldChange({ field: "expiryDate", value: "" }));
+        dispatch(handleFieldChange({ field: "phoneNumber", value: "" }));
         dispatch(closePopup());
       }
     });
@@ -44,7 +45,7 @@ const DeliveryPopup = () => {
 
   return (
     <>
-      <div className="modal">
+      <div ref={popupRef} className="modal">
         <div className="modal-content">
           <span className="close" onClick={() => dispatch(closePopup())}>
             &times;
@@ -70,7 +71,7 @@ const DeliveryPopup = () => {
                 component="div"
                 className="error-message"
               />
-              <label htmlFor="expiryDate">Validity:</label>
+              <label htmlFor="expiryDate">Expiry date:</label>
               <Field
                 className="delivery-input"
                 type="text"
@@ -90,7 +91,7 @@ const DeliveryPopup = () => {
                 type="text"
                 id="phoneNumber"
                 name="phoneNumber"
-                placeholder="055 555 55 55"
+                placeholder="Enter phone"
                 inputMode="numeric"
               />
               <ErrorMessage
