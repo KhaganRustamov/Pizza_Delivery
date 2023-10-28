@@ -8,21 +8,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.modal-content {
-  background-color: #f5f5f5;
-  width: 350px;
-  height: 450px;
-  padding: 20px;
-  border: 1px solid #888;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  text-align: center;
-  position: relative;
-  border-radius: 20px;
+  &-content {
+    background-color: #f5f5f5;
+    width: 350px;
+    height: 450px;
+    padding: 20px;
+    border: 1px solid #888;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: relative;
+    border-radius: 20px;
 
-  @media (max-width: 410px) {
-    width: 300px;
+    @media (max-width: 410px) {
+      width: 300px;
+    }
   }
 }
 

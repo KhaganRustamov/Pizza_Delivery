@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -30,8 +29,6 @@ const DeliveryPopup = () => {
   );
   const dispatch: AppDispatch = useDispatch();
 
-  const popupRef = useRef<HTMLDivElement>(null);
-
   const handleSubmit = () => {
     dispatch(fetchPopup()).then((result) => {
       if (fetchPopup.fulfilled.match(result)) {
@@ -45,7 +42,7 @@ const DeliveryPopup = () => {
 
   return (
     <>
-      <div ref={popupRef} className="modal">
+      <div className="modal">
         <div className="modal-content">
           <span className="close" onClick={() => dispatch(closePopup())}>
             &times;
