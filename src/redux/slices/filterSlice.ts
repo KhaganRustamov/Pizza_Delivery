@@ -17,7 +17,7 @@ const initialState: FilterInitialState = {
   searchValue: "",
   currentPage: 1,
   sort: {
-    name: "best rating",
+    name: "Best rating",
     sortProperty: "rating",
   },
 };
