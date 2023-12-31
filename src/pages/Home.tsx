@@ -43,7 +43,7 @@ const Home: React.FC = () => {
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
   const pizzas = items
     .filter((item) =>
-      item.title.toLowerCase().includes(searchValue.toLowerCase())
+      item.title && item.title.toLowerCase().includes(searchValue.toLowerCase())
     )
     .map((item) => <PizzaBlock {...item} key={item.id} />);
 
